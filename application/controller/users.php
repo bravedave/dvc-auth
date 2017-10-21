@@ -93,7 +93,7 @@ class users extends Controller {
 
 				$p->secondary();
 					$this->load('index');
-					$this->load('contents');
+					$this->load('main-index');
 
 		}
 

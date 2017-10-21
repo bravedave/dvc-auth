@@ -1,13 +1,16 @@
-# DVC Template
-
---- Alpha Software ---
-
+### DVC Simple Authenticating Template
 
 This is a template for using the DVC Framework
 
-Installing this demo exposes the documentation for using the dvc framework. The documentation
-is written using markdown and is part of the dvc framework.
+## Running this demo
+1. Creates a SQLite3 database
+2. Populates it with basic data
+3. **DOES NOT** lock down the system
+   * but if you select settings > lockdown and save
+     * you will require a username/password to gain access
+     * default user/pass = **admin** / **admin**
 
+## Install
 To use DVC on a Windows 10 computer (Devel Environment)
 1. Install PreRequisits
    * Install PHP : http://windows.php.net/download/

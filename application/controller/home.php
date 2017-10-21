@@ -8,6 +8,8 @@
 		http://creativecommons.org/licenses/by/4.0/
 	*/
 class home extends Controller {
+	protected $firstRun = FALSE;
+
 	protected function _authorize() {
 		$action = $this->getPost( 'action');
 		if ( $action == '-system-logon-') {
@@ -40,7 +42,13 @@ class home extends Controller {
 	protected function postHandler() {}
 
 	function __construct( $rootPath) {
-		$this->RequireValidation = \sys::lockdown();
+		$this->firstRun = sys::firstRun();
+
+		if ( $this->firstRun)
+			$this->RequireValidation = FALSE;
+		else
+			$this->RequireValidation = \sys::lockdown();
+
 		parent::__construct( $rootPath);
 
 	}
@@ -50,17 +58,22 @@ class home extends Controller {
 			$this->postHandler();
 
 		}
+		elseif ( $this->firstRun) {
+			$this->dbinfo();
+
+		}
 		else {
 			$p = new page( $this->title = sys::name());
-				$p
-					->header()
-					->title();
+			$p
+				->header()
+				->title()
+				->primary();
 
-			$p->primary();
-				$this->load( 'index');
+				$this->load( 'readme');
 
 			$p->secondary();
-				$this->load('contents');
+
+				$this->load('main-index');
 
 		}
 
@@ -69,16 +82,15 @@ class home extends Controller {
 	public function dbinfo() {
 		$p = new dvc\pages\bootstrap('dbinfo');
 			$p
-				->header()
-				->title();
+			->header()
+			->title()
+			->primary();
 
-			$p->primary();
-				$dbinfo = new dao\dbinfo;
-				$dbinfo->dump();
+			$dbinfo = new dao\dbinfo;
+			$dbinfo->dump();
 
-			$p->secondary();
-				$this->load('contents');
-
+		$p->secondary();
+			$this->load('main-index');
 
 	}
 

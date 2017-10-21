@@ -20,4 +20,10 @@ abstract class sys extends dvc\sys {
 
 	}
 
+	function firstRun() {
+		$dao = new dao\settings;
+		return ( $dao->firstRun());
+
+	}
+
 }

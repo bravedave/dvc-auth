@@ -57,7 +57,7 @@ class settings extends Controller {
 						$this->load('settings');
 
 					$p->secondary();
-						$this->load('contents');
+						$this->load('main-index');
 
 			}
 			else {
