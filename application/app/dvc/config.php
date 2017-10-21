@@ -12,7 +12,6 @@ NameSpace dvc;
 
 abstract class config extends _config {
 	static $WEBNAME = 'A PSR style PHP Framework';
-	//~ const lockdown = TRUE;
 	static $DB_TYPE = 'sqlite';
 
 	const use_inline_logon = TRUE;

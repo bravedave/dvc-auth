@@ -8,19 +8,19 @@
 		http://creativecommons.org/licenses/by/4.0/
 	*/
 abstract class sys extends dvc\sys {
-	function name() {
+	static function name() {
 		$dao = new dao\settings;
 		return ( $dao->getName());
 
 	}
 
-	function lockdown() {
+	static function lockdown() {
 		$dao = new dao\settings;
 		return ( $dao->lockdown());
 
 	}
 
-	function firstRun() {
+	static function firstRun() {
 		$dao = new dao\settings;
 		return ( $dao->firstRun());
 
