@@ -1,5 +1,8 @@
 # DVC Template
 
+--- Alpha Software ---
+
+
 This is a template for using the DVC Framework
 
 Installing this demo exposes the documentation for using the dvc framework. The documentation
@@ -15,11 +18,11 @@ To use DVC on a Windows 10 computer (Devel Environment)
    * MD C:\Data\
    * CD C:\Data
    * clone:
-      * git clone https://github.com/bravedave/dvc-template
+      * git clone https://github.com/bravedave/dvc-auth
    * or download as zip and extract
-      * https://github.com/bravedave/dvc-template/archive/master.zip
+      * https://github.com/bravedave/dvc-auth/archive/master.zip
 1. optionally change the name and change to the folder
-   * cd dvc-template
+   * cd dvc-auth
 1. run *composer install*
 
 To run the demo

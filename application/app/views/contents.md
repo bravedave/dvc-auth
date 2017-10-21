@@ -7,3 +7,6 @@
 * [settings](/settings/)
 
 * [dbinfo](/home/dbinfo/)
+
+---
+* [docs](/docs/)

@@ -57,7 +57,7 @@ class home extends Controller {
 					->title();
 
 			$p->primary();
-				$this->load( 'blank');
+				$this->load( 'index');
 
 			$p->secondary();
 				$this->load('contents');
