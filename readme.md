@@ -22,10 +22,10 @@ To use DVC on a Windows 10 computer (Devel Environment)
    * Install PHP : http://windows.php.net/download/
       * Install the non threadsafe binary
       * by default there is no php.ini (required)
-	* copy php.ini-production to php.ini
-	* edit and modify (uncomment)
-	  * extension=php_fileinfo.dll
-	  * extension=php_sqlite3.dll
+        * copy php.ini-production to php.ini
+        * edit and modify (uncomment)
+          * extension=php_fileinfo.dll
+          * extension=php_sqlite3.dll
    * Install Git : https://git-scm.com/
      * Install the *Git Bash Here* option
    * Install Composer : https://getcomposer.org/
