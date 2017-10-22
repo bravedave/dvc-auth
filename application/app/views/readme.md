@@ -9,3 +9,5 @@ Running this demo
    * but if you select settings > lockdown and save
      * you will require a username/password to gain access
      * default user/pass = **admin** / **admin**
+
+find me on GitHub : https://github.com/bravedave/dvc-auth
