@@ -38,6 +38,7 @@ To use DVC on a Windows 10 computer (Devel Environment)
       * git clone https://github.com/bravedave/dvc-auth
    * or download as zip and extract
       * https://github.com/bravedave/dvc-auth/archive/master.zip
+
 1. optionally change the name and change to the folder
    * cd dvc-auth
 1. run *composer install*
