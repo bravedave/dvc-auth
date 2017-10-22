@@ -10,6 +10,6 @@ rem | if the ports is occupied by another service
 rem | use 8080 as an alternative and access via
 rem |    http://localhost:8080
 rem +--------------------------------------------
-C:\PHP\php -S localhost:8080 -c c:\php\php.ini _dvc.php
+C:\PHP\php -S localhost:80 -c c:\php\php.ini _dvc.php
 
 CD %WD%
