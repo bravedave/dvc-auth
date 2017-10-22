@@ -8,6 +8,9 @@
 		}
 	],
 	"require": {
-		"bravedave/dvc": "dev-master"
+		"bravedave/dvc": "dev-master",
+		"ext-sqlite3": "*",
+
 	}
+
 }
