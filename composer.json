@@ -1,4 +1,5 @@
 {
+	"name": "bravedave/dvc-auth",
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"repositories": [
