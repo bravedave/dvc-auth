@@ -18,7 +18,6 @@
 		}
 	],
 	"require": {
-		"php": ">=5.5.0",
 		"bravedave/dvc": "dev-master",
 		"ext-sqlite3": "*"
 
