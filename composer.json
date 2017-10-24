@@ -1,6 +1,7 @@
 {
 	"name": "bravedave/dvc-auth",
 	"description": "DVC-AUTH - PSR-4 Data-View-Controller with Authentication",
+	"version": "0.0.1",
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"homepage": "http://brayworth.com",
@@ -18,6 +19,7 @@
 		}
 	],
 	"require": {
+		"php": ">=7.0",
 		"bravedave/dvc": "dev-master",
 		"ext-sqlite3": "*"
 
