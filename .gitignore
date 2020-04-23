@@ -1,2 +1,4 @@
-application/data/db.json
-application/data/sqlite.db
+.bak
+application/data
+vendor
+composer.lock

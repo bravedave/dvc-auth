@@ -14,19 +14,6 @@ Namespace dao;
 class settings extends _dao {
 	protected $_db_name = 'settings';
 
-	function firstRun() {
-		/**
-		 * test if the settings table exists
-		 * if it does - it is not first run
-		 */
-
-		if ( $res = $this->Result( "SELECT name FROM sqlite_master WHERE type='table' AND name='settings';"))
-			return ( !$res->dto());
-
-		return ( TRUE);
-
-	}
-
 	function getFirst() {
 		if ( $res = $this->Result( "SELECT * FROM settings"))
 			return ( $res->dto());

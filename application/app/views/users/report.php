@@ -1,52 +1,70 @@
 <?php
 /*
-	David Bray
-	BrayWorth Pty Ltd
-	e. david@brayworth.com.au
-
-	This work is licensed under a Creative Commons Attribution 4.0 International Public License.
-		http://creativecommons.org/licenses/by/4.0/
-
-	*/	?>
-<table class="table table-striped">
-	<thead>
+ * David Bray
+ * BrayWorth Pty Ltd
+ * e. david@brayworth.com.au
+ *
+ * MIT License
+ *
+*/
+	?>
+<table class="table" id="<?= $tblID = strings::rand() ?>">
+	<thead class="small">
 		<tr>
+			<td>#</td>
 			<td>Name</td>
 			<td>UserName</td>
 			<td>Email</td>
+			<td class="text-center">Admin</td>
+
 		</tr>
+
 	</thead>
 
 	<tbody>
-<?php	if ( $this->data) {
-			while ( $dto = $this->data->dto()) {	?>
-		<tr data-role="item" data-id="<?php print $dto->id ?>">
-			<td><?php print $dto->name ?></td>
-			<td><?php print $dto->username ?></td>
-			<td><?php print $dto->email ?></td>
+	<?php
+	if ( $this->data) {
+		while ( $dto = $this->data->dto()) {	?>
+		<tr data-id="<?php print $dto->id ?>">
+			<td line-number>&nbsp;</td>
+			<td><?= $dto->name ?></td>
+			<td><?= $dto->username ?></td>
+			<td><?= $dto->email ?></td>
+			<td class="text-center"><?= $dto->admin ? strings::html_tick : '&nbsp;' ?></td>
 
 		</tr>
 
-<?php		}
+	<?php
+		}
 
-		}	?>
-
+	}	?>
 	</tbody>
 
 </table>
 <script>
-$(document).ready( function() {
-	$('tr[data-role="item"]').each( function( i, el) {
-		var _el = $(el);
-		var editURL = _brayworth_.urlwrite('users/edit/' + _el.data('id'));
+$(document).ready( () => {
+	$('#<?= $tblID ?>')
+	.on('update-line-numbers', function( e) {
+		$('> tbody > tr:not(.d-none) >td[line-number]', this).each( ( i, e) => {
+			$(e).data('line', i+1).html( i+1);
+		});
+	})
+	.trigger('update-line-numbers');
 
-		_el.css('cursor','pointer').on( 'click', function( e) {
+	$('> tbody > tr', '#<?= $tblID ?>').each( ( i, el) => {
+		let _el = $(el);
+		let _data = _el.data();
+
+		let editURL = _brayworth_.url('users/edit/' + _data.id);
+
+		_el
+		.addClass('pointer')
+		.on( 'click', function( e) {
 			e.stopPropagation();
 			window.location.href = editURL;
 
-		});
-
-		_el.on('contextmenu', function( e) {
+		})
+		.on('contextmenu', function( e) {
 			if ( e.shiftKey)
 				return;
 
@@ -54,7 +72,7 @@ $(document).ready( function() {
 
 			_brayworth_.hideContexts();
 
-			var _context = _brayworth_.context();
+			let _context = _brayworth_.context();
 
 			_context.append( $('<a><i class="fa fa-fw fa-pencil"></i><strong>edit</strong></a>').attr( 'href', editURL));
 			_context.append( $('<a href="#"><i class="fa fa-fw fa-trash"></i>delete</a>').on('click', function(evt) {
@@ -72,19 +90,22 @@ $(document).ready( function() {
 						OK : function( e) {
 							$(this).modal('close');
 
-							$.ajax({
-								type : 'POST',
-								url : _brayworth_.urlwrite( 'users'),
+							_brayworth_.post({
+								url : _brayworth_.url('users'),
 								data : {
 									action : 'delete',
 									id : _el.data('id'),
 
 								}
 
-							})
-							.done( function( data) {
-								$('body').growlAjax( data);
-								window.location.reload();
+							}).then( function( d) {
+								if ( 'ack' == d.response) {
+									window.location.reload();
+								}
+								else {
+									_brayworth_.growl( d);
+
+								}
 
 							});
 
@@ -96,12 +117,11 @@ $(document).ready( function() {
 
 			}));
 
-
 			_context.open( e);
 
 		});
 
 	});
 
-})
+});
 </script>

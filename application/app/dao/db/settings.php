@@ -1,16 +1,17 @@
 <?php
 /*
-	David Bray
-	BrayWorth Pty Ltd
-	e. david@brayworth.com.au
+ * David Bray
+ * BrayWorth Pty Ltd
+ * e. david@brayworth.com.au
+ *
+ * MIT License
+ *
+*/
 
-	This work is licensed under a Creative Commons Attribution 4.0 International Public License.
-		http://creativecommons.org/licenses/by/4.0/
+$dbc = 'sqlite' == \config::$DB_TYPE ?
+	new \dvc\sqlite\dbCheck( $this->db, 'settings' ) :
+	new \dao\dbCheck( $this->db, 'settings' );
 
-	*/
-Namespace dvc\sqlite;
-
-$dbc = new dbCheck( $this->db, 'settings' );
 $dbc->defineField( 'name', 'text');
 $dbc->defineField( 'lockdown', 'int');
 $dbc->check();

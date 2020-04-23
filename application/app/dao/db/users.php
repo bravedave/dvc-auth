@@ -1,20 +1,22 @@
 <?php
 /*
-	David Bray
-	BrayWorth Pty Ltd
-	e. david@brayworth.com.au
+ * David Bray
+ * BrayWorth Pty Ltd
+ * e. david@brayworth.com.au
+ *
+ * MIT License
+ *
+*/
 
-	This work is licensed under a Creative Commons Attribution 4.0 International Public License.
-		http://creativecommons.org/licenses/by/4.0/
+$dbc = 'sqlite' == \config::$DB_TYPE ?
+	new \dvc\sqlite\dbCheck( $this->db, 'users' ) :
+	new \dao\dbCheck( $this->db, 'users' );
 
-	*/
-Namespace dvc\sqlite;
-
-$dbc = new dbCheck( $this->db, 'users' );
 $dbc->defineField( 'username', 'text');
 $dbc->defineField( 'name', 'text');
 $dbc->defineField( 'email', 'text');
 $dbc->defineField( 'pass', 'text');
+$dbc->defineField( 'admin', 'int');
 $dbc->defineField( 'created', 'text');
 $dbc->defineField( 'updated', 'text');
 $dbc->check();
@@ -28,9 +30,9 @@ if ( $res = $this->db->Result( 'SELECT count(*) count FROM users' )) {
 				'pass' => password_hash( 'admin', PASSWORD_DEFAULT),
 				'created' => \db::dbTimeStamp(),
 				'updated' => \db::dbTimeStamp()
-				];
-			$this->db->Insert( 'users', $a );
 
+			];
+			$this->db->Insert( 'users', $a );
 			\sys::logger( 'wrote users defaults');
 
 		}

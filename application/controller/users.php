@@ -1,13 +1,13 @@
 <?php
 /*
-	David Bray
-	BrayWorth Pty Ltd
-	e. david@brayworth.com.au
+ * David Bray
+ * BrayWorth Pty Ltd
+ * e. david@brayworth.com.au
+ *
+ * MIT License
+ *
+*/
 
-	This work is licensed under a Creative Commons Attribution 4.0 International Public License.
-		http://creativecommons.org/licenses/by/4.0/
-
-	*/
 class users extends Controller {
 	protected function postHandler() {
 		$action = $this->getPost('action');
@@ -20,7 +20,10 @@ class users extends Controller {
 			$a = [
 				'updated' => db::dbTimeStamp(),
 				'name' => $this->getPost('name'),
-				'email' => $this->getPost('email')];
+				'email' => $this->getPost('email'),
+				'admin' => (int)$this->getPost('admin')
+
+			];
 
 			if ( $pass = $this->getPost('pass')) {
 				$a['pass'] = password_hash( $pass, PASSWORD_DEFAULT);
@@ -67,35 +70,26 @@ class users extends Controller {
 
 	}
 
-	function __construct( $rootPath) {
-		$this->RequireValidation = \sys::lockdown();
-		parent::__construct( $rootPath);
+	protected function _index() {
+		$dao = new dao\users;
+		$this->data = $dao->getAll();
+		// sys::dump( $this->data);
+
+		$this->render([
+			'title' => $this->title = 'Users',
+			'primary' => 'report',
+			'secondary' => [
+				'index',
+				'main-index'
+			]
+
+		]);
 
 	}
 
-	function index() {
-		if ( $this->isPost()) {
-			$this->postHandler();
-
-		}
-		else {
-			$dao = new dao\users;
-			$this->data = $dao->getAll();
-			//~ sys::dump( $this->data);
-
-			$p = new page( $this->title = 'Users');
-				$p
-					->header()
-					->title();
-
-				$p->primary();
-					$this->load('report');
-
-				$p->secondary();
-					$this->load('index');
-					$this->load('main-index');
-
-		}
+	protected function before() {
+		$this->RequireValidation = sys::lockdown();
+		parent::before();
 
 	}
 
@@ -120,16 +114,14 @@ class users extends Controller {
 
 		}
 
-		$p = new page( $this->title = 'User');
-			$p
-				->header()
-				->title();
+		$this->render([
+			'title' => $this->title = 'User',
+			'primary' => 'edit',
+			'secondary' => [
+				'index',
+			]
 
-			$p->primary();
-				$this->load('edit');
-
-			$p->secondary();
-				$this->load('index');
+		]);
 
 	}
 

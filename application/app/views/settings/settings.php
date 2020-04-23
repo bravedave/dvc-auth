@@ -1,38 +1,52 @@
 <?php
 /*
-	David Bray
-	BrayWorth Pty Ltd
-	e. david@brayworth.com.au
-
-	This work is licensed under a Creative Commons Attribution 4.0 International Public License.
-		http://creativecommons.org/licenses/by/4.0/
-
-	*/	?>
-<form class="form" method="POST" action="<?php url::write( 'settings') ?>" >
-<?php	if ( $this->data) {	?>
-	<div class="form-group">
-		<label for="name">Name</label>
-		<input type="text" name="name" class="form-control"
-			value="<?php print $this->data->name ?>" />
-
-	</div>
-
-	<div class=" form-check">
-		<label class="form-check-label">
-			<input type="checkbox" name="lockdown" class="form-check-input" value="1"
-				<?php if( $this->data->lockdown) print 'checked'; ?> />
-
-			Lockdown
-
-		</label>
+ * David Bray
+ * BrayWorth Pty Ltd
+ * e. david@brayworth.com.au
+ *
+ * MIT License
+ *
+*/
+	?>
+<form method="POST" action="<? strings::url( 'settings') ?>" >
+	<input type="hidden" name="action" value="update" />
+	<?php
+	if ( $this->data) {	?>
+	<div class="form-group row">
+		<div class="col">
+			<label for="name">Name</label>
+			<input type="text" name="name" class="form-control"
+				value="<?= $this->data->name ?>" />
+		</div>
 
 	</div>
 
-	<input type="submit" name="action" value="update" class="btn btn-primary" />
+	<div class="form-group row">
+		<div class="col">
+			<div class="form-check">
+				<label class="form-check-label">
+					<input type="checkbox" name="lockdown" class="form-check-input" value="1"
+						<?php if( $this->data->lockdown) print 'checked'; ?> />
 
-<?php	}	?>
+					Lockdown
+
+				</label>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="form-group row">
+		<div class="col">
+			<button type="submit" class="btn btn-primary">update</button>
+
+		</div>
+
+	</div>
+
+	<?php
+	}	?>
 
 </form>
-<script>
-$(document).ready( function() {})
-</script>
