@@ -19,7 +19,7 @@ class settings extends Controller {
 
 			];
 
-			$dao = new dao\settings;
+			$dao = new dvc\auth\dao\settings;
 			$dao->UpdateByID( $a, 1);
 
 			Response::redirect( url::$URL, 'updated settings');
@@ -33,7 +33,7 @@ class settings extends Controller {
 	}
 
 	protected function _index() {
-		$dao = new dao\settings;
+		$dao = new dvc\auth\dao\settings;
 		if ( $res = $dao->getAll()) {
 
 			$this->data = $res->dto();

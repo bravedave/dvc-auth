@@ -8,7 +8,7 @@
  *
 */
 
-class home extends Controller {
+class home extends dvc\auth\controller {
 	protected function _authorize() {
 		$action = $this->getPost( 'action');
 		if ( $action == '-system-logon-') {
@@ -68,6 +68,12 @@ class home extends Controller {
 			$this->_index();
 
 		}
+
+	}
+
+	public function logout() {
+		session::destroy();
+		Response::redirect();
 
 	}
 

@@ -8,6 +8,10 @@
  *
 */
 
+namespace dvc\auth;
+
+use dvc;
+
 class controller extends dvc\Controller {
 	protected function before() {
 		config::auth_checkdatabase();

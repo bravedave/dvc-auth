@@ -8,6 +8,9 @@
  *
 */
 
+namespace dvc\auth;
+use dvc;
+
 class user extends dvc\user {
 	var $id = 0;
 	protected $dto = false;
@@ -26,6 +29,9 @@ class user extends dvc\user {
 		/**
 		 * if this function returns true you are logged in
 		 */
+
+		\sys::logger( sprintf('<%s> %s', $this->id, __METHOD__));
+
 
 		return ( $this->id > 0);
 

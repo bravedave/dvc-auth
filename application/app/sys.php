@@ -8,17 +8,5 @@
  *
 */
 
-abstract class sys extends dvc\sys {
-	static function name() {
-		$dao = new dao\settings;
-		return ( $dao->getName());
+class sys extends dvc\auth\sys {}
 
-	}
-
-	static function lockdown() {
-		$dao = new dao\settings;
-		return ( $dao->lockdown());
-
-	}
-
-}

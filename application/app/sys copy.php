@@ -8,5 +8,5 @@
  *
 */
 
-class config extends dvc\auth\config {}
+class user extends dvc\auth\user {}
 

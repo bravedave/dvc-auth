@@ -12,17 +12,26 @@
 		"email": "davbray@gmail.com",
 		"homepage": "http://brayworth.com"
 	}],
-	"repositories": [
-		{
-		    "type": "git",
-		    "url": "https://github.com/bravedave/dvc"
+	"autoload": {
+		"psr-4": {
+			"": "application/app/",
+			"dvc\\auth\\": "auth/"
 		}
+	},
+	"repositories": [
+		{ "type": "git", "url": "https://github.com/bravedave/dvc" },
+		{ "type": "git", "url": "https://github.com/bravedave/green" }
 	],
 	"require": {
 		"php": ">=7.0",
-		"bravedave/dvc": "dev-master",
-		"ext-sqlite3": "*"
+		"ext-sqlite3": "*",
+		"bravedave/dvc": "^2.0",
+		"bravedave/green": "dev-master"
 
+	},
+	"scripts": {
+		"post-update-cmd": [
+			"dvc\\auth\\postUpdate::upgrade"
+		]
 	}
-
 }
