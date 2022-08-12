@@ -8,9 +8,9 @@
  *
 */
 
-namespace dao;
+namespace dvc\auth\dao;
 
-class dbinfo extends _dbinfo {
+class dbinfo extends \dao\_dbinfo {
 	/*
 	 * it is probably sufficient to copy this file into the <application>/app/dao folder
 	 *

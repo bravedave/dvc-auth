@@ -9,20 +9,19 @@
 */
 
 namespace dvc\auth;
-use dvc;
+
+use dvc, dvc\session;
 
 class user extends dvc\user {
 	var $id = 0;
 	protected $dto = false;
 
 	public function __construct() {
-		if ( ( $id = (int)session::get('uid')) > 0 ) {
+		if (($id = (int)session::get('uid')) > 0) {
 			$dao = new \dao\users;
-			if ( $this->dto = $dao->getByID( $id))
+			if ($this->dto = $dao->getByID($id))
 				$this->id = $this->dto->id;
-
 		}
-
 	}
 
 	public function valid() {
@@ -30,22 +29,24 @@ class user extends dvc\user {
 		 * if this function returns true you are logged in
 		 */
 
-		\sys::logger( sprintf('<%s> %s', $this->id, __METHOD__));
+		if (\sys::lockdown()) {
+			\sys::logger(sprintf('<%s> %s', $this->id, __METHOD__));
+			return ($this->id > 0);
+		}
 
-
-		return ( $this->id > 0);
-
+		return true;
 	}
 
 	public function isadmin() {
-		if ( $this->valid()) {
-			\sys::logger( sprintf('<%s> %s', $this->dto->admin ? 'admin' : 'not admin', __METHOD__));
-			return $this->dto->admin;
+		if (\sys::lockdown()) {
+			if ($this->valid()) {
+				// \sys::logger(sprintf('<%s> %s', $this->dto->admin ? 'admin' : 'not admin', __METHOD__));
+				return $this->dto->admin;
+			}
 
+			return false;
 		}
 
-		return false;
-
+		return true;
 	}
-
 }

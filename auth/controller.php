@@ -16,7 +16,5 @@ class controller extends dvc\Controller {
 	protected function before() {
 		config::auth_checkdatabase();
 		parent::before();
-
 	}
-
 }
