@@ -35,5 +35,7 @@ mv application/data/defaults-sample.json application/data/defaults.json
 then update and run
 ```
 composer u
-./run.sh
+bash run.sh
 ```
+
+noting the ```bash run.sh``` command is required because the script is not executable ...you could change that :)
