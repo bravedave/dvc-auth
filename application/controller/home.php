@@ -8,7 +8,7 @@
  *
 */
 
-class home extends dvc\auth\controller {
+class home extends dvc\Controller {
 	protected function _authorize() {
 		$action = $this->getPost('action');
 		if ($action == '-system-logon-') {
@@ -46,7 +46,7 @@ class home extends dvc\auth\controller {
 			$dao = new dao\settings;
 			$dao->UpdateByID($a, 1);
 
-			Response::redirect(url::$URL, 'updated settings');
+			Json::ack($action);
 		} else {
 			parent::postHandler();
 		}
@@ -60,7 +60,7 @@ class home extends dvc\auth\controller {
 		$this->render([
 			'title' => $this->title = sys::name(),
 			'primary' => 'readme',
-			'secondary' => 'main-index'
+			'secondary' => 'index'
 		]);
 	}
 
@@ -90,16 +90,13 @@ class home extends dvc\auth\controller {
 		$dao = new dao\settings;
 		if ($res = $dao->getAll()) {
 
-			$this->data = $res->dto();
+			$this->data = (object)[
+				'settings' => $res->dto(),
+				'title' => $this->title = 'Settings'
 
-			//~ sys::dump( $this->data);
+			];
 
-			$this->render([
-				'title' => $this->title = 'Settings',
-				'primary' => 'settings',
-				'secondary' => 'main-index'
-
-			]);
+			$this->load('settings');
 		} else {
 			throw new Exception('missing system settings');
 		}

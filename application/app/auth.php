@@ -15,7 +15,7 @@ abstract class auth extends dvc\auth {
 		} else {
 			if (currentUser::valid()) {
 				return (sprintf(
-					'<a href="%s"><img alt="logout" src="%s" /><img alt="avatar" class="user-avatar" title="%s" src="%s" /><img alt="logout" src="%s" /></a>',
+					'<a class="nav-link" href="%s"><img alt="logout" src="%s" /><img alt="avatar" class="user-avatar" title="%s" src="%s" /><img alt="logout" src="%s" /></a>',
 					url::tostring('logout'),
 					url::tostring('images/logout-left9x54.png'),
 					currentUser::user()->name,

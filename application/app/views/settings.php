@@ -7,44 +7,84 @@
  * MIT License
  *
 */
+
+extract((array)$this->data);
 ?>
-<form method="POST" action="/">
+
+<form id="<?= $_form = strings::rand() ?>" autocomplete="off">
 	<input type="hidden" name="action" value="update-settings" />
-	<?php
-	if ($this->data) {	?>
-		<div class="form-group row">
-			<div class="col">
-				<label for="name">Name</label>
-				<input type="text" name="name" class="form-control" value="<?= $this->data->name ?>" />
-			</div>
 
-		</div>
+	<div class="modal fade" tabindex="-1" role="dialog" id="<?= $_modal = strings::rand() ?>" aria-labelledby="<?= $_modal ?>Label" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header <?= theme::modalHeader() ?>">
+					<h5 class="modal-title" id="<?= $_modal ?>Label"><?= $this->title ?></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group row">
+						<div class="col">
+							<label for="name">Name</label>
+							<input type="text" name="name" class="form-control" value="<?= $settings->name ?>" />
 
-		<div class="form-group row">
-			<div class="col">
-				<div class="form-check">
-					<label class="form-check-label">
-						<input type="checkbox" name="lockdown" class="form-check-input" value="1" <?php if ($this->data->lockdown) print 'checked'; ?> />
+						</div>
+					</div>
 
-						Lockdown
+					<div class="form-group row">
+						<div class="col">
+							<div class="form-check">
+								<input type="checkbox" name="lockdown" class="form-check-input" id="<?= $_uid = strings::rand() ?>" value="1" <?= $settings->lockdown ? 'checked' : ''; ?>>
+								<label class="form-check-label" for="<?= $_uid ?>">Lockdown</label>
 
-					</label>
+							</div>
+						</div>
+					</div>
 
 				</div>
 
+				<div class="modal-footer">
+					<div class="my-0 mr-auto js-message">&nbsp;</div>
+					<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">close</button>
+					<button type="submit" class="btn btn-primary">Update</button>
+				</div>
 			</div>
-
 		</div>
+	</div>
+	<script>
+		(_ => {
+			const modal = $('#<?= $_modal ?>');
 
-		<div class="form-group row">
-			<div class="col">
-				<button type="submit" class="btn btn-primary">update</button>
+			modal
+				.on('shown.bs.modal', () => {
+					$('#<?= $_form ?>')
+						.on('submit', function(e) {
+							let _form = $(this);
+							let _data = _form.serializeFormJSON();
 
-			</div>
+							// console.table( _data);
+							_.post({
+								url: _.url('<?= $this->route ?>'),
+								data: _data,
 
-		</div>
+							}).then(d => {
+								if ('ack' == d.response) {
+									modal
+										.trigger('success')
+										.modal('hide');
 
-	<?php
-	}	?>
+								} else {
+									modal.find('.js-message')
+										.addClass('alert alert-danger')
+										.html(d.description);
+									console.log(d);
+								}
+							});
 
+							return false;
+						});
+				})
+		})(_brayworth_);
+	</script>
 </form>

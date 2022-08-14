@@ -12,7 +12,7 @@ $dbc = \sys::dbCheck('users');
 $dbc->defineField('username', 'text');
 $dbc->defineField('name', 'text');
 $dbc->defineField('email', 'text');
-$dbc->defineField('pass', 'text');
+$dbc->defineField('password', 'text');
 $dbc->defineField('admin', 'int');
 $dbc->defineField('created', 'text');
 $dbc->defineField('updated', 'text');
@@ -24,11 +24,11 @@ if ($res = $this->db->Result('SELECT count(*) count FROM users')) {
 			$a = [
 				'username' => 'admin',
 				'name' => 'Administrator',
-				'pass' => password_hash('admin', PASSWORD_DEFAULT),
+				'password' => password_hash('admin', PASSWORD_DEFAULT),
 				'created' => \db::dbTimeStamp(),
 				'updated' => \db::dbTimeStamp()
-
 			];
+
 			$this->db->Insert('users', $a);
 			\sys::logger('wrote users defaults');
 		} else {

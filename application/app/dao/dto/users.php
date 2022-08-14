@@ -8,7 +8,7 @@
  *
 */
 
-namespace dvc\auth\dao\dto;
+namespace dao\dto;
 
 use dvc\dao\dto\_dto;
 

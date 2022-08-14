@@ -1,6 +1,6 @@
 {
 	"name": "bravedave/dvc-auth",
-	"description": "DVC-AUTH - PSR-4 Data-View-Controller with Authentication",
+	"description": "PSR-4 Data-View-Controller with Authentication",
 	"version": "0.0.1",
 	"minimum-stability": "dev",
 	"homepage": "http://brayworth.com",
@@ -10,10 +10,9 @@
 		"email": "davbray@gmail.com",
 		"homepage": "http://brayworth.com"
 	}],
-	"autoload": {
+	"autoload-dev": {
 		"psr-4": {
-			"": "application/app/",
-			"dvc\\auth\\": "auth/"
+			"": "application/app/"
 		}
 	},
 	"require": {
@@ -21,14 +20,13 @@
 		"ext-sqlite3": "*",
 		"bravedave/dvc": "*",
 		"bravedave/green": "dev-master"
-
 	},
 	"scripts": {
-		"demodata": [
-			"dvc\\auth\\postUpdate::demodata"
+		"set-default-password": [
+			"postUpdate::set_default_password"
 		],
 		"post-update-cmd": [
-			"dvc\\auth\\postUpdate::upgrade"
+			"postUpdate::upgrade"
 		]
 	}
 }
