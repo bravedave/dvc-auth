@@ -14,7 +14,8 @@ This is a template for using the DVC Framework
 3. **DOES NOT** lock down the system
    * but if you
      1. select settings > lockdown and save
-     2. you will require a username/password to gain access (default **admin/admin**)
+     2. logout (button, top right)
+     3. you will require a username/password to gain access (default **admin/admin**)
 
 
 ## Installation
