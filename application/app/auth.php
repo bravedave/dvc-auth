@@ -23,7 +23,7 @@ abstract class auth extends dvc\auth {
 					url::tostring('images/logout-63x54.png')
 				));
 			} else {
-				return (sprintf('<a class="btn" href="%s">logon</a>', url::tostring()));
+				return (sprintf('<a class="btn pt-4" href="%s">logon</a>', url::tostring()));
 			}
 		}
 

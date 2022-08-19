@@ -26,7 +26,49 @@ class home extends dvc\Controller {
 		throw new dvc\Exceptions\InvalidPostAction;
 	}
 
+	protected function _digest_challenge() {
+		// issue a digest challenge
+		// digest will work, not 100%, because passwords are encrypted
+		// also, the logout will need work to flush the user credentials and force a reenter
+		// you would have to be able to recover password
+
+		$realm = 'dvc-auth';
+		$users = [];
+
+		if ($result = $this->db->result('SELECT `id`, `username`, `password` FROM users')) {
+			while ($dto = $result->dto()) {
+				$users[$dto->username] = (object)[
+					'id' => $dto->id,
+					'username' => $dto->username,
+					'password' => 'password'
+				];
+			}
+		}
+
+		$digest = new dvc\digest($realm);
+		if ($user = $digest->getUsername()) {
+			if (isset($users[$user])) {
+				$challenge = md5(sprintf('%s:%s:%s', $user, $realm, $users[$user]->password));
+				if ($authorised = $digest->authorised($challenge)) {
+					$dao = new dao\users;
+					if ($dto = $dao->getByID($users[$user]->id)) {
+						$dao->setLoggedOn($dto);
+					}
+				} else {
+					die('invalid ' . $user . $users[$user]->password);
+				}
+			} else {
+				$digest->requireAuth();
+			}
+		} else {
+			$digest->requireAuth();
+		}
+	}
+
 	protected function authorize() {
+		// $this->_digest_challenge();
+		// return;
+
 		if ($this->isPost())
 			$this->_authorize();
 		else
